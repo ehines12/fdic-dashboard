@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FDIC Banking Dashboard · Aggregate Call Report Metrics</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%223%22 fill=%22%234f8cff%22/%3E%3Cpath d=%22M3 13V7l5-3 5 3v6M5 12V8M8 12V8M11 12V8%22 stroke=%22white%22 stroke-width=%221.4%22 fill=%22none%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script src="vendor/chart.umd.min.js"></script>
+<script src="vendor/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <h1>FDIC Banking Dashboard <span class="sub">All FDIC-insured institutions · quarterly</span></h1>
+    <div class="meta">Data: FDIC BankFind Suite API (Call Reports) · Latest quarter <b id="latestq">…</b> · <span id="updLabel">Last updated</span> <b id="updated">…</b> · <span id="okcount"></span></div>
+  </div>
+  <nav class="sections">
+    <a href="#summary">Summary</a><a href="#profitability">Profitability</a><a href="#credit">Credit Quality</a><a href="#funding">Funding &amp; Deposits</a><a href="#growth">Growth</a><a href="#capital">Capital</a><a href="#notes">Definitions</a>
+  </nav>
+  <div class="controls">
+    <div class="range" id="range">
+      <button data-r="5">5Y</button><button data-r="10">10Y</button><button data-r="15">15Y</button><button data-r="20">20Y</button><button data-r="0" class="on">Max</button>
+    </div>
+    <a class="dl" id="xlsx" href="fdic_metrics.xlsx" download title="Quarterly data for all metrics and groups, raw FDIC sums, and definitions">⬇ Excel</a>
+  </div>
+</header>
+
+<main>
+  <section id="tiles" class="tiles"></section>
+
+  <section class="sec" id="summary"><h2>Summary <span class="hint">latest quarter vs quarter-ago and year-ago · changes in bp · green/red = better/worse for bank fundamentals (blue = neutral) · hover for prior values</span></h2><div id="summaryTable"></div></section>
+
+  <div class="legendline" id="legend"></div>
+  <section class="sec" id="profitability"><h2>Profitability <span class="hint">quarterly, annualized</span></h2><div class="grid c2" data-sec="Profitability"></div></section>
+  <section class="sec" id="credit"><h2>Credit Quality <span class="hint">provision &amp; charge-off rates annualized; noncurrent &amp; reserves at quarter-end</span></h2><div class="grid c2" data-sec="Credit Quality"></div></section>
+  <section class="sec" id="funding"><h2>Funding &amp; Deposits</h2><div class="grid c2" data-sec="Funding &amp; Deposits"></div></section>
+  <section class="sec" id="growth"><h2>Growth <span class="hint">industry aggregate, not merger-adjusted (intra-industry M&amp;A nets out)</span></h2><div class="grid c3" data-sec="Growth"></div></section>
+  <section class="sec" id="capital"><h2>Capital</h2><div class="grid c3" data-sec="Capital"></div></section>
+
+  <section class="sec" id="notes"><h2>Definitions &amp; notes</h2><div class="notes" id="notesBox"></div></section>
+  <section class="sec" id="status"><h2>Data status</h2><div id="statusTable"></div></section>
+</main>
+<footer>Source: FDIC BankFind Suite API (api.fdic.gov/banks/financials), Call Report data for all FDIC-insured institutions summed by quarter; calculations by dashboard. Excludes insured U.S. branches of foreign banks. Shaded areas = NBER recessions (2001, 2007–09, 2020). Refreshed weekly (Mondays); FDIC data change quarterly (~8 weeks after quarter-end). Informational only; not investment advice. Times shown in Central (CT).</footer>
+<script src="app.js"></script>
+</body>
+</html>

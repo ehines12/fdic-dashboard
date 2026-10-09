@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.log
+*.png
+!preview.png
+FDIC_Dashboard_*.html
+_site/
+*.tmp
